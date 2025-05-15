@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contatore di Tocchi</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+    </style>
+</head>
+<body class="bg-gray-100 h-screen flex justify-center items-center">
+    <div class="bg-white rounded-lg shadow-md p-8 text-center">
+        <h1 class="text-2xl font-semibold text-gray-800 mb-4">Tocca lo schermo</h1>
+        <p class="text-xl text-gray-600 mb-6">Numero di tocchi:</p>
+        <div id="display" class="text-4xl font-bold text-blue-600 mb-8">0</div>
+        <button id="resetButton" class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded-full shadow-md focus:outline-none focus:shadow-outline">
+            Reset
+        </button>
+    </div>
+
+    <script>
+        let count = parseInt(localStorage.getItem('touchCount')) || 0;  // Ottieni il valore salvato o usa 0 se non esiste
+        const display = document.getElementById('display');
+        const resetButton = document.getElementById('resetButton');
+
+        display.textContent = count; // Mostra il valore iniziale
+
+        function incrementCount() {
+            count++;
+            display.textContent = count;
+            localStorage.setItem('touchCount', count); // Salva il valore
+        }
+
+        function resetCount() {
+            count = 0;
+            display.textContent = count;
+            localStorage.removeItem('touchCount'); // Rimuovi il valore salvato
+        }
+
+        document.body.addEventListener('click', incrementCount);
+        resetButton.addEventListener('click', resetCount);
+    </script>
+</body>
+</html>
